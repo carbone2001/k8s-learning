@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: tomcat4
+  labels:
+    estado: "produccion"
+    responsable: "Lucas"
+  annotations:
+    doc: "Se debe compilar con gcc"
+    adjunto: "ejemplo de anotación"
+spec:
+  containers:
+    - name: tomcat
+      image: tomcat

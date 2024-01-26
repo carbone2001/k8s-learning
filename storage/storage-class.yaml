@@ -1,0 +1,11 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  annotations:
+    description: Esto es un ejemplo de Storage StorageClass
+  name: bbdd
+#Indicamos quien nos provee el almacenamiento. Por ej. AWS.
+provisioner: kubernetes.io/no-provisioner
+reclaimPolicy: Delete
+#Hasta que no se cree en primer pod, no se va a realacionar el PV con el PVC.
+volumeBindingMode: WaitForFirstConsumer 

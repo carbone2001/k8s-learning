@@ -1,0 +1,21 @@
+apiVersion: v1
+#El tipo de componente a crear
+kind: Pod
+#Metadata del pod
+metadata:
+  #Nombre del pod
+  name: nginx
+  #Son simplemente etiquetas para mas info.
+  #No afectan al funcionamiento del pod
+  labels:
+    zone: prod
+    version: v1
+    author: Luquitas
+    cualquier-cosa: cualquier-valor
+
+spec:
+  #Contenedores del pod
+  containers:
+    - name: nginx #Nombre del container
+      image: apasoft/nginx:v1 #Imagen
+  restartPolicy: Always

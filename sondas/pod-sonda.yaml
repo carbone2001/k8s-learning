@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    test: liveness
+  name: sonda-liveness
+spec:
+  containers:
+  - name: pod-liveness
+    image: ubuntu
+    args:
+    - /bin/sh
+    - -c
+    #Se crea un directorio y a los 30s se lo elimina
+    - mkdir /tmp/prueba; sleep 30; rm -rf /tmp/prueba; sleep 600
+    #Sonda Liveness
+    livenessProbe:
+      #Se ejecuta comando de prueba
+      exec:
+        #Sonda de tipo command.
+        #Todo ok si el directorio existe
+        command:
+        - ls
+        - /tmp/prueba
+      #Segundos de espera luego de que arranque el container
+      initialDelaySeconds: 5
+      #Cada cuando tiempo la sonda testea
+      periodSeconds: 5
+

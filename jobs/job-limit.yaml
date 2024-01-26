@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: job4
+spec:
+  #Numero de REINTENTOS. Es decir, puede ejecutarse hasta 3 veces
+  backoffLimit: 2 
+  #Limite maximo de espera para que termine la ejecución
+  activeDeadlineSeconds: 15
+  template:
+    spec:
+      containers:
+      - name: job1
+        image: alpine   
+        command: ["sh","-c"]
+        args: ["cat/etc/puff.txt"]
+      restartPolicy: Never #Necesario para que no se ejecute infinitamente

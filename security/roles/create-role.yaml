@@ -1,0 +1,12 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  #Obligatorio definir NS
+  namespace: ventas
+  name: operador
+rules:
+  - apiGroups: [""] #Los resources habilitados. (kubectl api-resources columna APIVERSION)
+    #Recursos a los cuales puede acceder
+    resources: ["pods"]
+    #Verbos u operaciones habilitadas
+    verbs: ["get", "watch", "list"]

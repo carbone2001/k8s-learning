@@ -1,0 +1,9 @@
+Con el siguiente comando podremos configurar el cluster-mongo, es decir, informarle a mongo que existen otras replicas.
+Es necesario ingresar a cualquier Pod del StatefulSet con una consola interactiva y luego, habiendo entrado al cliente mongo, ejecutar
+el siguiente comando:
+
+rs.initiate({_id: "rs0", version: 1, members: [{ _id: 0, host :"mongo-0.mongodb-svc:27017" },{ _id: 1, host: "mongo-1.mongodb-svc:27017" }, { _id: 2, host: "mongo-2.mongodb-svc:27017" } ]});
+
+Para ver si salió todo bien:
+
+rs.conf()

@@ -1,0 +1,15 @@
+apiVersion: 1
+kind: Pod
+metadata:
+  name: var-ejemplo
+  labels:
+    app: variables
+spec:
+  containers:
+    - name: contenedor-variables
+      image: gcr.io/google-samples/node-hello:1.0
+      env: #Variables de entorno
+        - name: NOMBRE
+          value: "CURSO DE KUBERNETES"
+        - name: PROPIETARIO
+          value: "Apasoft Training"

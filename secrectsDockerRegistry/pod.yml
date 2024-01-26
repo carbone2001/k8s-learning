@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ejemplo-secrets-docker
+spec:
+  containers:
+    - name: test1 
+      image: carbone2001/test1:v1
+  imagePullSecrets:
+    - name: creds-docker

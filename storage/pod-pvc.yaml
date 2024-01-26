@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pv-pod
+spec:
+  #Creo un volumen...
+  volumes:
+    - name: pv-storage
+      #...asociado a un claim
+      persistentVolumeClaim:
+        claimName: pv-claim
+  containers:
+    - name: task-pv-container
+      image: nginx
+      ports:
+        - containerPort: 80
+          name: "http-server"
+      #Referencia al volumen creado anteriormente
+      volumeMounts:
+        #Ruta dentro del pod
+        - mountPath: "/var/www/html/"
+          name: pv-storage

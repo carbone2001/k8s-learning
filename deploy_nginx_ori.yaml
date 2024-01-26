@@ -1,0 +1,28 @@
+apiVersion: apps/v1 # i se Usa apps/v1beta2 para versiones anteriores a 1.9.0
+kind: Deployment
+metadata:
+  name: nginx-d
+  labels:
+    estado: "1"
+spec:
+  selector:   #permite seleccionar un conjunto de objetos que cumplan las condicione
+    matchLabels:
+      app: nginx
+  replicas: 10 # indica al controlador que ejecute 2 pods
+  strategy:
+     type: RollingUpdate
+     rollingUpdate:
+      maxUnavailable: 1 #Mínima cantidad de pods no disponibles (9 en este caso)
+      maxSurge: 1 #Maxima cantidad de pods exedentes (11 en este caso)
+  minReadySeconds: 2 #Tiempo de espera luego de que el pods esta ready
+  template:   # Plantilla que define los containers
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.16.1
+        ports:
+        - containerPort: 80
+

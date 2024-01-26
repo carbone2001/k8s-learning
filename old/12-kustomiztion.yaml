@@ -1,0 +1,22 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+#Colocar etiquetas a todos los manifiestos
+commonLabels:
+  app: ejemplo
+
+#Archivos de los manifiestos
+resources:
+- 15-pod-secret.yaml
+
+#Generar secrets
+secretGenerator:
+- name: db-credentials
+  literals:
+  - username=admin
+  - password=secr3tpassw0rd!
+
+#Cambiar las imagenes de los pods por esta
+images:
+- name: nginx
+  newTag: latest

@@ -1,0 +1,55 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx
+spec:
+  containers:
+    - name: nginx
+      image: nginx:alpine
+      #VARIABLES DE ENTORNO
+      env:
+        - name: MI_VARIABLE
+          value: "valor de mi variable"
+        - name: MI_OTRA_VARIABLE
+          value: "otro valor de mi variable"
+          # Se asigna el valor de la
+          # variable segun dato externo.
+          # Por ejemplo, la ip del host.
+        - name: DD_AGENT_HOST
+          valueFrom:
+            fieldRef:
+              fieldPath: status.hostIP
+      #Asignar recursos a los CONTENEDORES
+      resources:
+        #Recursos minimos requeridos.
+        #Los 'm' de cpu significa milicores
+        #1000m = 1 core
+        requests:
+          memory: "64Mi"
+          cpu: "200m"
+        #Recursos limites
+        #Si se excede la memoria, muere el proceso
+        #Si excede cpu, se le hace throttling
+        limits:
+          memory: "128Mi"
+          cpu: "500m"
+      #Se utiliza para avisar a K8s que el pod está
+      #listo para recibir trafico.
+      #k8s envia peticion a / y si recibe 200, fue exitoso
+      readinessProbe:
+        httpGet:
+          path: /
+          port: 80
+        #Tiempo de espera antes de iniciar prueba
+        initialDelaySeconds: 5
+        periodSeconds: 10
+      #Se utiliza para avisar que el pod está vivo
+      #Se corroborá que el socket este encendido
+      livenessProbe:
+        tcpSocket:
+          port: 80
+        initialDelaySeconds: 15
+        periodSeconds: 20
+      ports:
+        #puerto a exponer
+        - containerPort: 80

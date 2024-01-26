@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-label-3
+  labels:
+    environment: dev
+    author: Lucas
+spec:
+  containers:
+    - name: nginx
+      image: nginx

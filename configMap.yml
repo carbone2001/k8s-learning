@@ -1,0 +1,7 @@
+apiVersion: v1
+data:
+  password: pass1
+  usuario: usu1
+kind: ConfigMap
+metadata:
+  name: cf2

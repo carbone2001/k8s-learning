@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: job3
+spec:
+  
+  completions: 3
+  parallelism: 2 #Cantidad de Jobs que se pueden ejecutar en paralelo
+  template:
+    spec:
+      containers:
+      - name: job1
+        image: alpine   
+        command: ["sh","-c"]
+        args: ["echo Estas en la maquina con el nombre $(uname -n)"]
+      restartPolicy: Never

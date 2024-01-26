@@ -1,0 +1,13 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+   name: role-operador
+   namespace: ventas
+subjects:
+- kind: User
+  name: desa1 #Al usuario "desa1"...
+  apiGroup: rbac.authorization.k8s.io
+roleRef:
+  kind: Role 
+  name: operador #... le asigno el role "operador"
+  apiGroup: rbac.authorization.k8s.io

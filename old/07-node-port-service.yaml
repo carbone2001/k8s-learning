@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hello
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      role: hello
+  template:
+    metadata:
+      labels:
+        role: hello
+    spec:
+      containers:
+      - name: hello
+        image: gcr.io/google-samples/hello-app:1.0
+        ports:
+        - containerPort: 8080
+
+---
+#CREACION DEL SERVICIO
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello
+spec:
+  #Especificar servicio
+  type: NodePort
+  ports:
+  #El puerto 30000 se redirigirá a 8080
+  - port: 8080
+    targetPort: 8080
+    nodePort: 30000
+  selector:
+    role: hello

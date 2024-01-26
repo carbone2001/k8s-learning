@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: volumenes
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+    volumeMounts:
+    - mountPath: /home
+      name: home
+    - mountPath: /git
+      name: git
+      readOnly: true
+    - mountPath: /temp
+      name: temp
+  volumes:
+  #Está asociado a un directorio de nuestro host
+  - name: home
+    hostPath:
+      path: /home/kubernetes/datos
+  #Estará asociado a un repo de Git (deprecado)
+  - name: git
+    gitRepo:
+      repository: https://github.com/apasoftTraining/cursoKubernetes.git
+  #Una volumen temporal. Muere con el POD.
+  - name: temp
+    emptyDir: {}
